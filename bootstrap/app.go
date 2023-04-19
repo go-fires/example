@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"github.com/go-fires/example/app/providers"
 	"github.com/go-fires/example/config"
 	"github.com/go-fires/framework/cache"
 	"github.com/go-fires/framework/encryption"
@@ -21,6 +22,7 @@ func App() *foundation.Application {
 	app.Register(redis.NewProvider(app))
 	app.Register(encryption.NewProvider(app))
 	app.Register(cache.NewProvider(app))
+	app.Register(providers.NewHttpProvider(app))
 
 	return app
 }

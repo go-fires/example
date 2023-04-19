@@ -1,16 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"github.com/go-fires/example/app/console"
 	"github.com/go-fires/example/bootstrap"
-	"github.com/go-fires/framework/facade"
 )
 
 func main() {
-	app := bootstrap.App()
-	defer app.Terminate()
+	kernel := console.NewKernel(bootstrap.App())
+	defer kernel.Terminate()
 
-	fmt.Println(facade.Hash().Make("123456"))
-
-	app.Boot()
+	kernel.Handle()
 }
