@@ -23,6 +23,8 @@ type Provider struct {
 	*foundation.UnimplementedProvider
 }
 
+var _ foundation.Provider = (*Provider)(nil)
+
 func NewProvider(app foundation.Application) *Provider {
 	return &Provider{
 		app: app,
