@@ -1,4 +1,4 @@
-package providers
+package http
 
 import (
 	"github.com/gin-gonic/gin"
@@ -18,35 +18,35 @@ var middlewares = []gin.HandlerFunc{
 	gin.Recovery(),
 }
 
-type HttpProvider struct {
+type Provider struct {
 	app foundation.Application
 	*foundation.UnimplementedProvider
 }
 
-func NewHttpProvider(app foundation.Application) *HttpProvider {
-	return &HttpProvider{
+func NewProvider(app foundation.Application) *Provider {
+	return &Provider{
 		app: app,
 	}
 }
 
-func (g *HttpProvider) Register() {
+func (g *Provider) Register() {
 	g.app.Singleton("http.kernel", func(container container.Container) interface{} {
 		return gin.Default()
 	})
 }
 
-func (g *HttpProvider) Boot() {
+func (g *Provider) Boot() {
 	g.router()
 	g.middleware()
 }
 
-func (g *HttpProvider) router() {
+func (g *Provider) router() {
 	for _, router := range routers {
 		router.Register(facades.Http())
 	}
 }
 
-func (g *HttpProvider) middleware() {
+func (g *Provider) middleware() {
 	for _, middleware := range middlewares {
 		facades.Http().Use(middleware)
 	}
