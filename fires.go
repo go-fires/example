@@ -7,7 +7,6 @@ import (
 
 func main() {
 	kernel := console.NewKernel(bootstrap.App())
-	defer kernel.Terminate()
 
 	kernel.Handle()
 }
